@@ -1,0 +1,17 @@
+services:
+  homeassistant:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SECRET: ${SECRET}
+    container_name: homeassistant
+    ports:
+      - "8123:8123"
+    volumes:
+      - homeassistant:/config
+    restart: unless-stopped
+
+volumes:
+  homeassistant:
+    name: homeassistant
