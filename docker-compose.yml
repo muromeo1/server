@@ -1,7 +1,7 @@
 services:
   homeassistant:
     build:
-      context: .
+      context: ./homeassistant/
       dockerfile: Dockerfile
       args:
         SECRET: ${SECRET}
