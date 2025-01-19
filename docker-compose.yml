@@ -6,12 +6,15 @@ services:
       args:
         SECRET: ${SECRET}
     container_name: homeassistant
-    ports:
-      - "8123:8123"
     volumes:
       - homeassistant:/config
     restart: unless-stopped
+    network_mode: host
 
 volumes:
   homeassistant:
     name: homeassistant
+
+networks:
+  internal:
+    driver: bridge
