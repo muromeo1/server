@@ -12,13 +12,13 @@ services:
     network_mode: host
 
   internet-checker:
-    container_name: internet_checker
+    container_name: internet-checker
     build:
       context: ./webhooks/
       dockerfile: Dockerfile
     restart: unless-stopped
     volumes:
-      - internet_checker:/usr/src/app
+      - internet-checker:/usr/src/app
     environment:
       - APP=internet_checker
       - WEBHOOK_URL=${WEBHOOK_URL}
@@ -55,8 +55,8 @@ services:
 volumes:
   homeassistant:
     name: homeassistant
-  internet_checker:
-    name: internet_checker
+  internet-checker:
+    name: internet-checker
   water:
     name: water
   ntfy:
