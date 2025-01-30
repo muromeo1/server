@@ -1,31 +1,63 @@
 services:
   homeassistant:
+    container_name: homeassistant
     build:
       context: ./homeassistant/
       dockerfile: Dockerfile
       args:
         SECRET: ${SECRET}
-    container_name: homeassistant
+    restart: unless-stopped
     volumes:
       - homeassistant:/config
-    restart: unless-stopped
     network_mode: host
 
   internet-checker:
+    container_name: internet_checker
     build:
       context: ./webhooks/
       dockerfile: Dockerfile
+    restart: unless-stopped
     volumes:
       - internet_checker:/usr/src/app
-    container_name: internet_checker
-    command: ruby main.rb
-    restart: unless-stopped
     environment:
       - APP=internet_checker
       - WEBHOOK_URL=${WEBHOOK_URL}
+    command: ruby main.rb
+
+  water:
+    container_name: water
+    build:
+      context: ./webhooks/
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    volumes:
+      - water:/usr/src/app
+    environment:
+      - APP=water
+      - WEBHOOK_URL=${WEBHOOK_URL}
+    command: ruby main.rb
+
+  ntfy:
+    container_name: ntfy
+    image: binwiederhier/ntfy
+    restart: unless-stopped
+    volumes:
+      - ntfy:/var/cache/ntfy
+      - ntfy:/etc/ntfy
+    environment:
+      TZ: America/Sao_Paulo
+      NTFY_BASE_URL: ${WEBHOOK_URL}
+      NTFY_UPSTREAM_BASE_URL: https://ntfy.sh
+    ports:
+      - 8280:80
+    command: serve
 
 volumes:
   homeassistant:
     name: homeassistant
   internet_checker:
     name: internet_checker
+  water:
+    name: water
+  ntfy:
+    name: ntfy
