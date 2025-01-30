@@ -6,6 +6,8 @@ This repo aims to set a kind of architecture as code to my personal home lab.
 
 - 🏠 Homeassistant
 - 🛜 Internet Checker
+- 💧 Water Reminder
+- 🪝 Ntfy
 
 ## Getting Started
 
