@@ -11,6 +11,21 @@ services:
     restart: unless-stopped
     network_mode: host
 
+  internet-checker:
+    build:
+      context: ./webhooks/
+      dockerfile: Dockerfile
+    volumes:
+      - internet_checker:/usr/src/app
+    container_name: internet_checker
+    command: ruby main.rb
+    restart: unless-stopped
+    environment:
+      - APP=internet_checker
+      - WEBHOOK_URL=${WEBHOOK_URL}
+
 volumes:
   homeassistant:
     name: homeassistant
+  internet_checker:
+    name: internet_checker
