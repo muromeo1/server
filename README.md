@@ -4,8 +4,8 @@ This repo aims to set a kind of architecture as code to my personal home lab.
 
 ## Contents
 
-🏠 Homeassistant
-🛜 Internet Checker
+- 🏠 Homeassistant
+- 🛜 Internet Checker
 
 ## Getting Started
 
