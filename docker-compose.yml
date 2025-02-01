@@ -52,6 +52,15 @@ services:
       - 8280:80
     command: serve
 
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server:latest
+    restart: always
+    volumes:
+      - vw-data:/data/
+    ports:
+      - "8800:80"
+
 volumes:
   homeassistant:
     name: homeassistant
@@ -61,3 +70,6 @@ volumes:
     name: water
   ntfy:
     name: ntfy
+  vw-data:
+    name: vaultwarden_vw-data
+    external: true
